@@ -1,0 +1,3 @@
+<div [ngClass]="{'user-message': chatMsg.role === 'user', 'bot-message': chatMsg.role === 'bot'}">
+    <p [innerHTML]="messageContent"></p>
+</div>
