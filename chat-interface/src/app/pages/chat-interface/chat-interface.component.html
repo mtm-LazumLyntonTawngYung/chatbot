@@ -2,7 +2,7 @@
     <nz-header>
         <div class="left">
             <h3 nz-typography class="title">チエンノワ</h3>
-            <nz-avatar nzSize="default" [nzShape]="'circle'" nzIcon="user"></nz-avatar>
+            <nz-avatar nzSize="default" [nzShape]="'circle'" nzIcon="robot" nzTheme="outline"></nz-avatar>
         </div>
 
         <div class="radio-option">
@@ -30,7 +30,7 @@
                 <input type="text" nz-input placeholder="メッセージを入力してください" [(ngModel)]="userInput" (keydown)="handleInputMsg($event)" (compositionstart)="onCompositionStart()" (compositionend)="onCompositionEnd()">
             </nz-input-group>
             <ng-template ngSkipHydration #suffixButton>
-                <button  nz-button nzSize="large" nzSearch (click)="sendMessage()">送信<nz-icon nzType="send" nzTheme="outline" /></button>
+                <button  nz-button nzSize="large" nzSearch (click)="sendMessage()" >送信<nz-icon nzType="send" nzTheme="outline" /></button>
             </ng-template>
         </div>
     </nz-content>
