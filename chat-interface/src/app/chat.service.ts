@@ -7,12 +7,14 @@ import { appConstants } from './constants/appConstants';
 })
 export class ChatService {
 
-  getChatMessageReply(botStyle: BotStyle): RespondMsg {
+  getChatMessageReply(botStyle: BotStyle, userMessage: string): RespondMsg {
     const botMsg: BotMsg = appConstants.CHAT_MSG[botStyle as keyof typeof appConstants.CHAT_MSG];
+
+    if(userMessage.includes('hi')){
+      return { message: 'こんにちは！本日はどのようなご用件でしょうか？'};
+    }
     
     return { message: botMsg.defaultMsg || appConstants.DEFAULT_MSG };
   }
 }
-
-
 
