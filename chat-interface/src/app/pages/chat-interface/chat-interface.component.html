@@ -30,7 +30,7 @@
                 <input type="text" nz-input placeholder="メッセージを入力してください" [(ngModel)]="userInput" (keydown)="handleInputMsg($event)" (compositionstart)="onCompositionStart()" (compositionend)="onCompositionEnd()">
             </nz-input-group>
             <ng-template ngSkipHydration #suffixButton>
-                <button  nz-button nzSize="large" nzSearch (click)="sendMessage()" >送信<nz-icon nzType="send" nzTheme="outline" /></button>
+                <button  nz-button nzSize="small" nzSearch (click)="sendMessage()" >送信<nz-icon nzType="send" nzTheme="outline" /></button>
             </ng-template>
         </div>
     </nz-content>

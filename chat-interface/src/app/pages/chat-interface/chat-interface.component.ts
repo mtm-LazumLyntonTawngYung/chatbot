@@ -17,6 +17,7 @@ import { MessageComponent } from '../../message/message.component';
 
 @Component({
   selector: 'app-chat-interface',
+  standalone: true,
   imports: [
     NzLayoutModule,
     NzAvatarModule,
@@ -43,7 +44,8 @@ export class ChatInterfaceComponent implements OnInit{
   botStyle = appConstants.BOT_STYLE;
   selectedRadioOption: BotStyle = BotStyle.normal;
 
-  constructor(private chatService: ChatService){}
+  constructor(private chatService: ChatService){
+  }
 
   ngOnInit(): void {
     this.handleBotChanged();
