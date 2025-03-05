@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ChatMessage } from '../type.component';
@@ -17,7 +17,7 @@ export class MessageComponent implements OnChanges{
   
   constructor(private sanitizer: DomSanitizer){}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.messageContent = this.sanitizer.bypassSecurityTrustHtml(this.chatMsg?.message)
   }
 }

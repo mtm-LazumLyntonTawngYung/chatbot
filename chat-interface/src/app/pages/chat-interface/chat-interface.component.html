@@ -2,7 +2,7 @@
     <nz-header>
         <div class="left">
             <h3 nz-typography class="title">チエンノワ</h3>
-            <nz-avatar nzSize="default" [nzShape]="'circle'" nzIcon="robot" nzTheme="outline"></nz-avatar>
+            <nz-avatar nzSize="default" [nzShape]="'circle'" nzIcon="user" ></nz-avatar>
         </div>
 
         <div class="radio-option">
@@ -15,13 +15,14 @@
 
     <nz-content>
         <nz-card  class="chat-message" [nzBordered]="true" [nzBodyStyle]="{'paddingBottom' : '25px'}">
-            <div class="chat-body">
+            <div class="chat-body" #chatWindow>
                 <div class="messages-container">
-                    <div *ngFor="let message of messages" [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'">
-                      <app-message [chatMsg]="message"></app-message>
-                    </div>
+                  <div *ngFor="let message of messages" [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'">
+                    <app-message [chatMsg]="message"></app-message>
                   </div>
+                </div>
             </div>
+              
             <app-loading [isLoading]="isLoading"></app-loading>
         </nz-card>
 
@@ -30,7 +31,7 @@
                 <input type="text" nz-input placeholder="メッセージを入力してください" [(ngModel)]="userInput" (keydown)="handleInputMsg($event)" (compositionstart)="onCompositionStart()" (compositionend)="onCompositionEnd()">
             </nz-input-group>
             <ng-template ngSkipHydration #suffixButton>
-                <button  nz-button nzSize="small" nzSearch (click)="sendMessage()" >送信<nz-icon nzType="send" nzTheme="outline" /></button>
+                <button  nz-button nzSize="large" nzSearch (click)="sendMessage()">送信<nz-icon nzType="send" nzTheme="outline" /></button>
             </ng-template>
         </div>
     </nz-content>

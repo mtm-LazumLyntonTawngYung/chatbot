@@ -7,11 +7,12 @@ import { appConstants } from './constants/appConstants';
 })
 export class ChatService {
 
-  constructor() { }
-
-  getChatMessageReply(botStyle: BotStyle, userMessage: string): RespondMsg {
+  getChatMessageReply(botStyle: BotStyle): RespondMsg {
     const botMsg: BotMsg = appConstants.CHAT_MSG[botStyle as keyof typeof appConstants.CHAT_MSG];
     
     return { message: botMsg.defaultMsg || appConstants.DEFAULT_MSG };
   }
 }
+
+
+

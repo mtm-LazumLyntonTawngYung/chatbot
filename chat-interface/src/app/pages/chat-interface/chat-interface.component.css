@@ -4,6 +4,13 @@ nz-layout {
     min-height: 100vh;
     background: #f0f2f5;
     overflow-y: hidden;
+
+}
+
+.chat-container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
 }
 
 nz-header {
@@ -121,6 +128,10 @@ p[nz-typography] {
 
 /* Responsive styles */
 @media (max-width: 768px) {
+    nz-layout {
+        overflow-y: hidden;
+    }
+
     nz-header {
         align-items: flex-start;
         gap: 1rem;
@@ -141,6 +152,10 @@ p[nz-typography] {
 }
 
 @media (max-width: 480px) {
+    nz-layout {
+        overflow-y: hidden;
+    }
+
     nz-header .title {
         font-size: 0.8rem;
         gap: 0.3rem;

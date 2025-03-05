@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -12,12 +12,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { LoadingComponent } from '../../loading/loading.component';
 import { ChatService } from '../../chat.service';
 import { appConstants } from '../../constants/appConstants';
-import { BotStyle, BotMsg, RequestMsg, ChatMessage, RespondMsg, MsgSender } from '../../type.component';
+import { BotStyle, BotMsg, ChatMessage, MsgSender } from '../../type.component';
 import { MessageComponent } from '../../message/message.component';
 
 @Component({
   selector: 'app-chat-interface',
-  standalone: true,
   imports: [
     NzLayoutModule,
     NzAvatarModule,
@@ -29,14 +28,14 @@ import { MessageComponent } from '../../message/message.component';
     FormsModule,
     NzInputModule,
     NzIconModule,
-    MessageComponent
+    MessageComponent,
   ],
   templateUrl: './chat-interface.component.html',
   styleUrl: './chat-interface.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ChatInterfaceComponent implements OnInit{
-  @ViewChild('chatWindow') chatWindow: ElementRef | null = null;
+export class ChatInterfaceComponent implements OnInit, AfterViewChecked{
+  @ViewChild('chatWindow') private chatWindow!: ElementRef;
   isLoading = false;
   messages: ChatMessage[] = [];
   userInput = '';
@@ -44,11 +43,14 @@ export class ChatInterfaceComponent implements OnInit{
   botStyle = appConstants.BOT_STYLE;
   selectedRadioOption: BotStyle = BotStyle.normal;
 
-  constructor(private chatService: ChatService){
-  }
+  constructor(private chatService: ChatService){}
 
   ngOnInit(): void {
     this.handleBotChanged();
+  }
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
   }
 
   handleBotChanged(): void{
@@ -62,6 +64,16 @@ export class ChatInterfaceComponent implements OnInit{
     return appConstants.CHAT_MSG[botStyle as keyof typeof appConstants.CHAT_MSG];
   }
 
+  
+
+  onCompositionStart(): void{
+    this.isComposing=true;
+  }
+
+  onCompositionEnd(): void{
+    this.isComposing=false;
+  }
+
   initiateMessage(textMsg: string): void{
     this.isLoading = true;
     setTimeout(() =>{
@@ -73,24 +85,18 @@ export class ChatInterfaceComponent implements OnInit{
     this.scrollToBottom();
   }
 
-  onCompositionStart(): void{
-    this.isComposing=true;
-  }
-
-  onCompositionEnd(): void{
-    this.isComposing=false;
-  }
-
-  scrollToBottom(): void {
-    if (this.chatWindow) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: this.chatWindow?.nativeElement.clientHeight,
-          behavior: 'smooth'
-        });
-      }, appConstants.TIME_OUT_SETTING);
+  private scrollToBottom(): void {
+    try {
+      if (this.chatWindow && this.chatWindow.nativeElement) {
+        this.chatWindow.nativeElement.scrollTop = this.chatWindow.nativeElement.scrollHeight;
+      }
+    } catch (err) {
+      console.error('Scroll to bottom failed:', err);
     }
   }
+  
+
+  
 
   handleInputMsg(event: KeyboardEvent): void{
     if (event.key === 'Enter' && !this.isComposing){
@@ -98,32 +104,27 @@ export class ChatInterfaceComponent implements OnInit{
     }
   }
 
-  sendMessage(): void{
-    if (this.userInput.trim() && !this.isLoading){
+  sendMessage(): void {
+    if (this.userInput.trim() && !this.isLoading) {
       this.messages.push({
-        message: this.userInput.trim(), role: MsgSender.user
+        message: this.userInput.trim(),
+        role: MsgSender.user
       });
-      this.scrollToBottom();
+      this.userInput = '';
       this.replyMessage(this.userInput.trim());
-      this.userInput='';
     }
-  }
-
-  getMessageClass(message: any): string{
-    return message.role === 'bot' ? 'user' : 'bot';
   }
 
   replyMessage(textMsg: string): void {
     const botResponse = this.chatService.getChatMessageReply(this.selectedRadioOption, textMsg);
-    
+    this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
       this.messages.push({
         message: botResponse.message,
         role: MsgSender.bot
       });
-      this.scrollToBottom();
-    }, appConstants.TIME_OUT_SETTING);
+    }, 1000);
   }
   
 }

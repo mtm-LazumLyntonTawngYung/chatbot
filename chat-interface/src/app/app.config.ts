@@ -11,9 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 
-import { SendOutline } from '@ant-design/icons-angular/icons'; // Import your icons here
+import { SendOutline } from '@ant-design/icons-angular/icons';
 
-const icons = [SendOutline]; // Define the icons array
+const icons = [SendOutline];
 
 registerLocaleData(en);
 
