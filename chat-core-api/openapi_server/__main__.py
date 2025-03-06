@@ -12,7 +12,7 @@ def main():
                 arguments={'title': 'Chat Core Api'},
                 pythonic_params=True)
 
-    app.run(port=8080, debug=True)
+    app.run(port=8080)
 
 
 if __name__ == '__main__':

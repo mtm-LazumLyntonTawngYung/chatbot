@@ -1,4 +1,5 @@
 from typing import List
+API_KEY = "APIKEY"
 
 
 def info_from_ApiKeyAuth(api_key, required_scopes):
@@ -14,5 +15,6 @@ def info_from_ApiKeyAuth(api_key, required_scopes):
     :return: Information attached to provided api_key or None if api_key is invalid or does not allow access to called API
     :rtype: dict | None
     """
+    if api_key != API_KEY:
+        return None
     return {'uid': 'user_id'}
-
