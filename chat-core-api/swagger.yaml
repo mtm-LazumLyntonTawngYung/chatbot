@@ -8,7 +8,7 @@ servers:
   - url: http://localhost/v1
 paths:
   chat/case:
-    $ref: './spec/paths/ChatTag.yaml#/~1chat~1case'
+    $ref: './spec/paths/Tag.yaml#/~1chat~1case'
 tags:
   - name: Chat
     description: API for Chat Interface

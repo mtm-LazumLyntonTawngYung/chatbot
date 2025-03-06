@@ -10,14 +10,14 @@
         content:
           application/json:
             schema:
-              $ref: '../spec/schemas/ChatRequest.yaml'
+              $ref: '../schemas/ChatRequest.yaml'
       responses:
         '200':
           description:  Chat Response Successful
           content:
             application/json:
               schema:
-                $ref: '../spec/schemas/ChatResponse.yaml'
+                $ref: '../schemas/ChatResponse.yaml'
               examples:
                 normal:
                   summary: Normal Bot Response
