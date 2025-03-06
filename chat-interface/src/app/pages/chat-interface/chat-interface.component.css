@@ -3,8 +3,7 @@ nz-layout {
     flex-direction: column;
     min-height: 100vh;
     background: #f0f2f5;
-    overflow-y: hidden;
-
+    overflow: hidden;
 }
 
 .chat-container {
@@ -129,7 +128,7 @@ p[nz-typography] {
 /* Responsive styles */
 @media (max-width: 768px) {
     nz-layout {
-        overflow-y: hidden;
+        overflow: hidden;
     }
 
     nz-header {
@@ -153,7 +152,7 @@ p[nz-typography] {
 
 @media (max-width: 480px) {
     nz-layout {
-        overflow-y: hidden;
+        overflow: hidden;
     }
 
     nz-header .title {

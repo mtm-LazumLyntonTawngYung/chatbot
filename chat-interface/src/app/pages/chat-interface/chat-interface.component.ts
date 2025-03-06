@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -31,10 +31,10 @@ import { MessageComponent } from '../../message/message.component';
     MessageComponent,
   ],
   templateUrl: './chat-interface.component.html',
-  styleUrl: './chat-interface.component.css',
+  styleUrls: ['./chat-interface.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ChatInterfaceComponent implements OnInit, AfterViewChecked{
+export class ChatInterfaceComponent implements OnInit {
   @ViewChild('chatWindow') private chatWindow!: ElementRef;
   isLoading = false;
   messages: ChatMessage[] = [];
@@ -43,63 +43,52 @@ export class ChatInterfaceComponent implements OnInit, AfterViewChecked{
   botStyle = appConstants.BOT_STYLE;
   selectedRadioOption: BotStyle = BotStyle.normal;
 
-  constructor(private chatService: ChatService){}
+  constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.handleBotChanged();
   }
 
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
-  }
-
-  handleBotChanged(): void{
+  handleBotChanged(): void {
     this.messages = [];
     const chatMsg = this.getChatMsgWithBot(this.selectedRadioOption);
     this.initiateMessage(chatMsg.greetingMsg);
-    this.initiateMessage(chatMsg.questionMsg)
+    this.initiateMessage(chatMsg.questionMsg);
   }
 
   getChatMsgWithBot(botStyle: BotStyle): BotMsg {
     return appConstants.CHAT_MSG[botStyle as keyof typeof appConstants.CHAT_MSG];
   }
 
-  
-
-  onCompositionStart(): void{
-    this.isComposing=true;
+  onCompositionStart(): void {
+    this.isComposing = true;
   }
 
-  onCompositionEnd(): void{
-    this.isComposing=false;
+  onCompositionEnd(): void {
+    this.isComposing = false;
   }
 
-  initiateMessage(textMsg: string): void{
+  initiateMessage(textMsg: string): void {
     this.isLoading = true;
-    setTimeout(() =>{
+    setTimeout(() => {
       this.isLoading = false;
       this.messages.push({
         message: textMsg, role: MsgSender.bot
       });
+      this.scrollToBottom();
     }, appConstants.TIME_OUT_SETTING);
-    this.scrollToBottom();
   }
 
-  private scrollToBottom(): void {
-    try {
-      if (this.chatWindow && this.chatWindow.nativeElement) {
+  scrollToBottom(): void {
+    if (this.chatWindow) {
+      setTimeout(() => {
         this.chatWindow.nativeElement.scrollTop = this.chatWindow.nativeElement.scrollHeight;
-      }
-    } catch (err) {
-      console.error('Scroll to bottom failed:', err);
+      })
     }
   }
-  
 
-  
-
-  handleInputMsg(event: KeyboardEvent): void{
-    if (event.key === 'Enter' && !this.isComposing){
+  handleInputMsg(event: KeyboardEvent): void {
+    if (event.key === 'Enter' && !this.isComposing) {
       this.sendMessage();
     }
   }
@@ -110,6 +99,7 @@ export class ChatInterfaceComponent implements OnInit, AfterViewChecked{
         message: this.userInput.trim(),
         role: MsgSender.user
       });
+      this.scrollToBottom();
       this.userInput = '';
       this.replyMessage(this.userInput.trim());
     }
@@ -124,7 +114,7 @@ export class ChatInterfaceComponent implements OnInit, AfterViewChecked{
         message: botResponse.message,
         role: MsgSender.bot
       });
+      this.scrollToBottom();
     }, 1000);
   }
-  
 }

@@ -11,11 +11,11 @@ import { ChatMessage } from '../type.component';
   templateUrl: './message.component.html',
   styleUrl: './message.component.css'
 })
-export class MessageComponent implements OnChanges{
+export class MessageComponent implements OnChanges {
   @Input() chatMsg!: ChatMessage;
   messageContent!: SafeHtml
-  
-  constructor(private sanitizer: DomSanitizer){}
+
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnChanges(): void {
     this.messageContent = this.sanitizer.bypassSecurityTrustHtml(this.chatMsg?.message)
