@@ -1,10 +1,7 @@
 # chat_controller.py
 import connexion
-from typing import Dict, Tuple, Union
 from openapi_server.models.chat_request import ChatRequest  # noqa: E501
 from openapi_server.models.chat_respond import ChatRespond  # noqa: E501
-from openapi_server.models.message import Message
-from openapi_server import util
 from openapi_server.services.chat_services import ChatServices
 
 
