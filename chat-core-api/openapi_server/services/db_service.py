@@ -18,9 +18,7 @@ class ChienowaNetDbService:
 
     @staticmethod
     def get_db_url_by_environment():
-        url = 'mysql+pymysql://'
-        url += '@' + INSTANCE_CONNECTION_NAME + ':3306/'
-        url += DATABASE_NAME
+        url = 'mysql+pymysql://root:root@localhost:3306/g_system01_dev'
         return url
 
     @contextmanager
