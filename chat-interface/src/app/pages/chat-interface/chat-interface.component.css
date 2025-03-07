@@ -1,6 +1,5 @@
 nz-layout {
     display: flex;
-    /* flex-direction: column; */
     height: 100%;
     background: #f0f2f5;
     overflow-y: hidden;
