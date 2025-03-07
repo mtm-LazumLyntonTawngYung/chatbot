@@ -13,25 +13,57 @@ Python 3.5.2+
 ## Usage
 To run the server, please execute the following from the root directory:
 
+```sh
+cd chat-core-api
+pip install -r requirements.txt
+
 ```
+
+<!-- Swagger CLI Installation -->
+```sh
+npm install -g @apidevtools/swagger-cli
+
+```
+<!-- Openapi Generator Installation -->
+```sh
+npm i openapi-generator
+npm i @openapitools/openapi-generator-cli
+
+```
+
+<!-- Swagger and Openapi Generator -->
+```sh
+swagger-cli bundle swagger.yaml --outfile swagger-build.yaml --type yaml
+openapi-generator-cli generate -i swagger-build.yaml -g python-flask
+```
+
+<!-- Local Environment Setting -->
+To run in command prompt
+```sh
+set FLASK_APP=openapi_server/__main__.py
+set FLASK_DEBUG=1
+python -m flask run --host=0.0.0.0 --port=8080
+```
+
+```sh
 pip3 install -r requirements.txt
 python3 -m openapi_server
 ```
 
 and open your browser to here:
 
-```
+```sh
 http://localhost:8080/v1/ui/
 ```
 
 Your OpenAPI definition lives here:
 
-```
+```sh
 http://localhost:8080/v1/openapi.json
 ```
 
 To launch the integration tests, use tox:
-```
+```sh
 sudo pip install tox
 tox
 ```
