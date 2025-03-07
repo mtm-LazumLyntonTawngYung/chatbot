@@ -61,13 +61,13 @@ nz-content {
 .chat-message {
     flex-grow: 1;
     margin-bottom: 1rem;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .chat-body {
     padding: 1rem;
     max-height: 60vh;
-    overflow-y: hidden;
+    overflow: auto;
     display: flex;
 }
 
