@@ -21,3 +21,12 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
+
+
+requirements.txt
+openapi_server/__main__.py
+openapi_server/util.py
+openapi_server/typing_utils.py
+openapi_server/controllers/chat_controller.py
+openapi_server/controllers/security_controller.py
+openapi_server/services/chat_services.py
