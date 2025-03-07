@@ -5,3 +5,7 @@ responses = {
     'friend': "大丈夫です、忘れた時は一緒にリマインダーをセットしようね。",
     'doctor': "薬を飲み忘れると健康に影響を及ぼす可能性があります。リマインダーを使って忘れないようにしましょう。"
 }
+DATABASE_NAME = os.getenv('DATABASE_NAME', 'g_system01_dev')
+DATABASE_USERNAME = os.getenv('DATATBASE_USERNAME', 'root')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD', 'root')
+INSTANCE_CONNECTION_NAME = os.getenv('INSTANCE_CONNECTION_NAME', 'localhost')
