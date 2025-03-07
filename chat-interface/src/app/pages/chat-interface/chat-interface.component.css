@@ -1,15 +1,9 @@
 nz-layout {
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    /* flex-direction: column; */
+    height: 100%;
     background: #f0f2f5;
-    overflow: hidden;
-}
-
-.chat-container {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
+    overflow-y: hidden;
 }
 
 nz-header {
@@ -73,7 +67,7 @@ nz-content {
 .chat-body {
     padding: 1rem;
     max-height: 60vh;
-    overflow-y: auto;
+    overflow-y: hidden;
     display: flex;
 }
 
