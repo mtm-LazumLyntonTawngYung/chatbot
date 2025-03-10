@@ -11,17 +11,15 @@ def reply_chat_case(body=None):  # noqa: E501
         chat_request = ChatRequest.from_dict(connexion.request.get_json())  # noqa: E501
 
     try:
+        # Only the part that can raise an error goes here
         response_message = ChatServices.generate_chat_response(chat_request)
+    except ValueError as err:
+        error_message = f"Error: {str(err)}"
+        return ChatRespond(message=error_message), 400
+    except Exception as err:
+        error_message = f"Internal Server Error: {str(err)}"
+        return ChatRespond(message=error_message), 500
 
-        chat_respond = ChatRespond(message=response_message)
-        return chat_respond
-
-    except ValueError as e:
-        error_message = f"Error: {str(e)}"
-        chat_respond = ChatRespond(message=error_message)
-        return chat_respond, 400
-
-    except Exception as e:
-        error_message = f"Internal Server Error: {str(e)}"
-        chat_respond = ChatRespond(message=error_message)
-        return chat_respond, 500
+    # Everything else is outside the try block
+    chat_respond = ChatRespond(message=response_message)
+    return chat_respond

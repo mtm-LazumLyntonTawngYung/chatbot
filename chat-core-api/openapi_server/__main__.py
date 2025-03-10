@@ -3,6 +3,7 @@
 import connexion
 
 from openapi_server import encoder
+from openapi_server.variables import port
 
 
 def main():
@@ -12,7 +13,7 @@ def main():
                 arguments={'title': 'Chat Core Api'},
                 pythonic_params=True)
 
-    app.run(port=8080)
+    app.run(port=port)
 
 
 if __name__ == '__main__':
