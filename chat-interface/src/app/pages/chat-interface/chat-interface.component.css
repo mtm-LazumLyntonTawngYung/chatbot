@@ -1,0 +1,180 @@
+nz-layout {
+    display: flex;
+    height: 100%;
+    background: #f0f2f5;
+    overflow-y: hidden;
+}
+
+nz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #7360f2;
+    color: white;
+}
+
+nz-header .left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+nz-header .title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: white;
+}
+
+nz-radio-group {
+    display: flex;
+    gap: 30px;
+}
+
+label[nz-radio-button] {
+    text-align: center;
+    color: white;
+    background-color: rgba(168, 208, 215, 0.5);
+    border: none;
+    width: 100px;
+    height: 30px;
+}
+
+label[nz-radio-button]:hover {
+    color: black;
+}
+
+.radio-option label[nz-radio-button].ant-radio-button-wrapper-checked {
+    background-color: #1890ff;
+    color: #fff;
+    border-color: #1890ff;
+}
+
+nz-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.chat-message {
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    overflow-y: hidden;
+}
+
+.chat-body {
+    padding: 1rem;
+    max-height: 60vh;
+    overflow: auto;
+    display: flex;
+}
+
+.chat-input {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+button[nz-button] {
+    height: 100%;
+    padding: 8px 10px;
+    color: #7360f2;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+button[nz-button]:hover {
+    border: 1px solid #1890ff;
+    transition: .3s fade ease-in-out;
+}
+
+.messages-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-message {
+    align-self: flex-end;
+}
+
+.bot-message {
+    align-self: flex-start;
+}
+
+
+nz-footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #434956;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+p[nz-typography] {
+    color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    nz-layout {
+        overflow: hidden;
+    }
+
+    nz-header {
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    nz-content {
+        padding: 0.5rem;
+    }
+
+    .chat-input {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .chat-input button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    nz-layout {
+        overflow: hidden;
+    }
+
+    nz-header .title {
+        font-size: 0.8rem;
+        gap: 0.3rem;
+        width: 70px;
+    }
+
+
+    nz-header .left {
+        gap: 0.5rem;
+    }
+
+    nz-radio-group {
+        display: flex;
+        gap: 10px;
+        margin-left: 15px;
+    }
+
+    nz-radio {
+        width: 60px;
+    }
+
+    .chat-message {
+        padding: 0;
+        margin: 0;
+    }
+
+    nz-content {
+        padding: 0;
+    }
+}
