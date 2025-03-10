@@ -40,7 +40,6 @@ class ChatServices:
         except Exception as error:
             raise connexion.ProblemException(500, str(error))
 
-
     def get_case_group_info(self, care_id, body):
         """Extract case group info based on provided care_id and body."""
         case_groups = infer_case_group(care_id, body)
@@ -58,7 +57,6 @@ class ChatServices:
         max_prob_case = max(inferred_case_groups,
                             key=lambda x: x['probability'], default=None)
         return max_prob_case
-
 
     def get_solutions_message(self, gpbp_result, threshold, param_msg='', symbolic_name='', is_good_pt=False):
         """Get a formatted message for top solutions based on GP rate threshold."""
@@ -79,16 +77,13 @@ class ChatServices:
 
         return f'{message_intro}{solutions_text}'
 
-
     def is_valid_gpbp_result(self, gpbp_result):
         """Check if GPBP result is valid."""
         return isinstance(gpbp_result, list) and gpbp_result
 
-
     def is_valid_case_group(self, case_groups):
         """Check if case groups have valid inferences."""
         return isinstance(case_groups.get('inferences'), list) and case_groups['inferences']
-
 
     def filter_solutions_by_rate(self, gpbp_result, threshold, is_good_pt):
         """Filter solutions based on GP rate."""
@@ -97,7 +92,6 @@ class ChatServices:
         else:
             return [solution for solution in gpbp_result if solution.gprate <= threshold]
 
-
     def format_solutions(self, solutions):
         """Format solutions into a string representation."""
         formatted_solutions = [
@@ -105,7 +99,6 @@ class ChatServices:
             for index, solution in enumerate(solutions)
         ]
         return (formatted_solutions)
-
 
     def construct_final_message(self, gp_msg, bp_msg, url_intro):
         """Construct the final response message."""
