@@ -1,0 +1,19 @@
+Message:
+        title: Message
+        type: object
+        required:
+          - role
+          - message
+        properties:
+          role:
+            description: The role of the message sender
+            type: string
+            enum:
+              - system
+              - bot
+              - user
+            example: 'user'
+          message:
+            type: string
+            description: The content of the message
+            example: '私はよく薬を飲むのを忘れてしまいます。'

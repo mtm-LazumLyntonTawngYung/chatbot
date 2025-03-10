@@ -1,0 +1,23 @@
+ChatRequest:
+      type: object
+      title: Chat Request
+      required:
+      - message
+      - bot_style
+      properties:
+        message:
+          example: 私はよく薬を飲むのを忘れてしまいます。
+          type: string
+          description: user message
+        bot_style:
+          enum:
+            - normal
+            - friend
+            - doctor
+          example: "normal"
+          type: string
+        messages:
+          type: array
+          description: a list of previous message message from the conversation
+          items:
+            $ref: './Message.yaml'
