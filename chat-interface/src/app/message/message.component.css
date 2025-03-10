@@ -1,0 +1,22 @@
+.user-message {
+    background-color: rgb(191 219 254);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #D1D0D0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    align-self: flex-start;
+}
+
+.bot-message, .user-message {
+    margin: 5px 0;
+    width: fit-content;
+    font-size: 16px;
+    padding: 10px
+}

@@ -1,0 +1,48 @@
+<nz-layout>
+    <nz-header>
+        <div class="left">
+            <h3 nz-typography class="title">チエンノワ</h3>
+            <nz-avatar nzSize="default" [nzShape]="'circle'" nzIcon="user"></nz-avatar>
+        </div>
+
+        <div class="radio-option">
+            <nz-radio-group [(ngModel)]="selectedRadioOption" (ngModelChange)="handleBotChanged()">
+                <nz-radio nz-radio-button *ngFor="let botOption of botStyle" [nzValue]="botOption.value"
+                    [nzDisabled]="isLoading">{{ botOption.label}}
+                </nz-radio>
+            </nz-radio-group>
+        </div>
+    </nz-header>
+
+    <nz-content>
+        <nz-card class="chat-message" [nzBordered]="true" [nzBodyStyle]="{'paddingBottom' : '25px'}">
+            <div class="chat-body" #chatWindow>
+                <div class="messages-container">
+                    <div *ngFor="let message of messages"
+                        [ngClass]="message.role === 'user' ? 'user-message' : 'bot-message'">
+                        <app-message [chatMsg]="message"></app-message>
+                    </div>
+                </div>
+            </div>
+
+            <app-loading [isLoading]="isLoading"></app-loading>
+        </nz-card>
+
+        <div class="chat-input">
+            <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+                <input type="text" nz-input placeholder="メッセージを入力してください" [(ngModel)]="userInput"
+                    (keydown)="handleInputMsg($event)" (compositionstart)="onCompositionStart()"
+                    (compositionend)="onCompositionEnd()">
+            </nz-input-group>
+            <ng-template ngSkipHydration #suffixButton>
+                <button nz-button nzSize="large" nzSearch (click)="sendMessage()">送信<nz-icon nzType="send"
+                        nzTheme="outline" /></button>
+            </ng-template>
+        </div>
+    </nz-content>
+
+    <nz-footer>
+        <p nz-typography><b>ちえんのわチャットボット</b></p>
+        <p nz-typography>著作権 &copy; 株式会社ちえのわ All Rights Reserved.</p>
+    </nz-footer>
+</nz-layout>
