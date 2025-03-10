@@ -1,12 +1,9 @@
 import logging
-import os
 from contextlib import contextmanager
 
-from sqlalchemy import create_engine, engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
-
-from openapi_server.variables import DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, INSTANCE_CONNECTION_NAME
 
 
 class ChienowaNetDbService:
