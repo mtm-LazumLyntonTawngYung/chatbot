@@ -1,39 +1,35 @@
-import logging
-import os
 from contextlib import contextmanager
-
-from sqlalchemy import create_engine, engine
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
-
-from openapi_server.variables import DATABASE_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, INSTANCE_CONNECTION_NAME
+from variables import DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USERNAME, INSTANCE_CONNECTION_NAME
 
 
 class ChienowaNetDbService:
+    """Service to manage database connections and sessions."""
 
     def __init__(self):
-        url = self.get_db_url_by_environment()
-        self.engine = create_engine(url, echo=False, poolclass=NullPool)
+        """Initializes the database engine and session maker."""
+        self.engine = create_engine(
+            self._get_db_url_by_environment(), echo=False, poolclass=NullPool)
         self.Session = sessionmaker(bind=self.engine, autocommit=False)
-
-    @staticmethod
-    def get_db_url_by_environment():
-        url = 'mysql+pymysql://root:root@localhost:3306/g_system01_dev'
-        return url
 
     @contextmanager
     def start_session(self, commit=False):
-        session = None
+        """Context manager for database sessions."""
+        session = self.Session()
         try:
-            session = self.Session()
-            try:
-                yield session
-                if commit:
-                    session.commit()
-            except Exception as e:
-                logging.info(e)
-                session.rollback()
-                raise
+            if commit:
+                session.commit()
+        except Exception:
+            session.rollback()
+            raise
         finally:
-            if session is not None:
-                session.close()
+            session.close()
+
+    def _get_db_url_by_environment(self):
+        """Constructs the database URL using environment variables."""
+        return (
+            f"mysql+pymysql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}"
+            f"@{INSTANCE_CONNECTION_NAME}:3306/{DATABASE_NAME}"
+        )

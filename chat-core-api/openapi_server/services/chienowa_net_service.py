@@ -7,14 +7,10 @@ from openapi_server.variables import ALL_KEYWORD_TEXT
 class ChienowaNetService:
     def get_aggregations(self, param_case_group_id):
         db = ChienowaNetDbService()
-
         with db.start_session(commit=False) as session:
-
             sub_query = self._build_subquery(session)
-
             gpbp_result = self._fetch_aggregated_results(
                 session, param_case_group_id, sub_query)
-
         return gpbp_result
 
     def _build_subquery(self, session):
