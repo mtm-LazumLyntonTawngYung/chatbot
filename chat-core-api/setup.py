@@ -1,3 +1,4 @@
+import sys
 from setuptools import setup, find_packages
 
 NAME = "openapi_server"
@@ -33,3 +34,4 @@ setup(
     API for interacting with various chatbot personas
     """
 )
+

@@ -49,9 +49,6 @@ venv/
 .python-version
 .pytest_cache
 
-# Virtual Environment
-../venv
-
 # Translations
 *.mo
 *.pot

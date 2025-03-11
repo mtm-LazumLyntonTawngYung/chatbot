@@ -1,4 +1,4 @@
-/chat/case:
+/chat-case:
     post:
       summary: Responed to a chat case
       description: allow user to send message and recieve response from chatbot based on the personas
