@@ -1,0 +1,41 @@
+/chat/case:
+    post:
+      summary: Responed to a chat case
+      description: allow user to send message and recieve response from chatbot based on the personas
+      operationId: reply_chat_case
+      tags:
+      - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/ChatRequest.yaml'
+      responses:
+        '200':
+          description:  Chat Response Successful
+          content:
+            application/json:
+              schema:
+                $ref: '../schemas/ChatResponse.yaml'
+              examples:
+                normal:
+                  summary: Normal Bot Response
+                  value:
+                    messages: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます 起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+                friend:
+                  summary: Friend Bot Response
+                  value:
+                    message: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます 起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+                doctor:
+                  summary: Doctor Bot Response
+                  value:
+                    message: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます 起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+        '400':
+          description: Bad Request due to invalid input
+        '401': 
+          description: Unauthorized access
+        '500':
+          description: Internal Server Error
+      security:
+        - ApiKeyAuth: []

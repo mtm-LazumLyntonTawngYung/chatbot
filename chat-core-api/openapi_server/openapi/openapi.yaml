@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  description: API for interacting with various chatbot personas
+  title: Chat Core Api
+  version: 1.0.0
+servers:
+- url: https://localhost/v1
+- url: http://localhost/v1
+tags:
+- description: API for Chat Interface
+  name: Chat
+paths:
+  /chat/case:
+    post:
+      description: Allow user to send message and receive response from chatbot based
+        on the personas
+      operationId: reply_chat_case
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                normal:
+                  summary: Normal Bot Response
+                  value:
+                    messages: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます
+                      起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+                friend:
+                  summary: Friend Bot Response
+                  value:
+                    message: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます
+                      起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+                doctor:
+                  summary: Doctor Bot Response
+                  value:
+                    message: こんにちは。認知症の方に起きたことを教えていただければ、どのような対応方法が好ましいか、過去の統計情報からお答えできます
+                      起きたことの例 ・薬を飲むことを忘れてしまう・さっき話したことを、何度も繰り返す
+              schema:
+                $ref: '#/components/schemas/ChatRespond'
+          description: Chat Response Successful
+        "400":
+          description: Bad Request due to invalid input
+        "401":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+      security:
+      - ApiKeyAuth: []
+      summary: Respond to a chat case
+      tags:
+      - Chat
+      x-openapi-router-controller: openapi_server.controllers.chat_controller
+components:
+  schemas:
+    ChatRequest:
+      example:
+        bot_style: normal
+        messages:
+        - role: user
+          message: 私はよく薬を飲むのを忘れてしまいます。
+        - role: user
+          message: 私はよく薬を飲むのを忘れてしまいます。
+        message: 私はよく薬を飲むのを忘れてしまいます。
+      properties:
+        message:
+          description: User message
+          example: 私はよく薬を飲むのを忘れてしまいます。
+          title: message
+          type: string
+        bot_style:
+          enum:
+          - normal
+          - friend
+          - doctor
+          example: normal
+          title: bot_style
+          type: string
+        messages:
+          description: A list of previous messages from the conversation
+          items:
+            $ref: '#/components/schemas/Message'
+          title: messages
+          type: array
+      required:
+      - bot_style
+      - message
+      title: Chat Request
+      type: object
+    ChatRespond:
+      example:
+        message: 薬を定期的に服用することは重要です。毎日のリマインダーを設定すると役立つかもしれません。
+      properties:
+        message:
+          description: Response message from the chatbot
+          example: 薬を定期的に服用することは重要です。毎日のリマインダーを設定すると役立つかもしれません。
+          title: message
+          type: string
+      title: Chat Response
+      type: object
+    Message:
+      example:
+        role: user
+        message: 私はよく薬を飲むのを忘れてしまいます。
+      properties:
+        role:
+          description: The role of the message sender
+          enum:
+          - system
+          - bot
+          - user
+          example: user
+          title: role
+          type: string
+        message:
+          description: The content of the message
+          example: 私はよく薬を飲むのを忘れてしまいます。
+          title: message
+          type: string
+      required:
+      - message
+      - role
+      title: Message
+      type: object
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: X-API-KEY
+      type: apiKey
+      x-apikeyInfoFunc: openapi_server.controllers.security_controller.info_from_ApiKeyAuth

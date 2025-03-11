@@ -1,0 +1,26 @@
+openapi: 3.0.0
+info:
+  title: Chat Core Api
+  description: API for interacting with various chatbot personas
+  version: 1.0.0
+servers:
+  - url: https://localhost/v1
+  - url: http://localhost/v1
+paths:
+  chat/case:
+    $ref: './spec/paths/Tag.yaml#/~1chat~1case'
+tags:
+  - name: Chat
+    description: API for Chat Interface
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: X-API-KEY
+      in: header
+  schemas:
+    ChatRequest:
+      $ref: './spec/schemas/ChatRequest.yaml'
+    ChatRespond:
+      $ref: './spec/schemas/ChatResponse.yaml'
+
