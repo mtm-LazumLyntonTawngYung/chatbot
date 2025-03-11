@@ -59,6 +59,16 @@ sudo pip install tox
 tox
 ```
 
+<!-- Run Flask App -->
+```sh
+$env:INSTANCE_CONNECTION_NAME="localhost"
+$env:DATABASE_USERNAME="root"
+$env:DATABASE_PASSWORD="root"
+$env:FLASK_APP="openapi_server/__main__.py"
+$env:FLASK_DEBUG="1"
+python -m flask run --host=0.0.0.0 --port=8080
+```
+
 ## Running with Docker
 
 To run the server on a Docker container, please execute the following from the root directory:
