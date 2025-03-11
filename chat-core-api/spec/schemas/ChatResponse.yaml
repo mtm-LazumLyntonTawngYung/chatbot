@@ -1,0 +1,8 @@
+ChatResponse:
+        title: Chat response
+        type: object
+        properties:
+          message:
+              type: string
+              example: 薬を定期的に服用することは重要です。毎日のリマインダーを設定すると役立つかもしれません。
+              description: Response Message from the chatbot
