@@ -10,7 +10,7 @@ class ChatServices:
         try:
             selected_bot_type = responses[bot_style]
             case_group_data = self.get_case_group_info(0, input_msg)
-
+            # print(case_group_data)
             if not case_group_data:
                 return selected_bot_type['NO_DATA_MSG_REPLY']
 
@@ -43,17 +43,16 @@ class ChatServices:
     def get_case_group_info(self, care_id, body):
         """Extract case group info based on provided care_id and body."""
         case_groups = infer_case_group(care_id, body)
+        # print(case_groups['inferences'][:5])
 
         if not self.is_valid_case_group(case_groups):
             return None
 
-        # Filter inferred case groups by probability threshold
         inferred_case_groups = [
             each_case for each_case in case_groups['inferences']
             if each_case['probability'] >= CASE_GROUP_THRESHOLD
         ]
 
-        # Get the case with the highest probability
         max_prob_case = max(inferred_case_groups,
                             key=lambda x: x['probability'], default=None)
         return max_prob_case
