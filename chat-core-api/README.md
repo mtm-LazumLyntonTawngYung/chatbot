@@ -79,3 +79,13 @@ docker build -t openapi_server .
 # starting up a container
 docker run -p 8080:8080 openapi_server
 ```
+
+## Running Test Code
+```sh
+pip install -r requirements.txt
+pip install -r test-requirements.txt
+# running only one file
+python -m unittest openapi_server.test_manual.chienowa_net_service
+# running all test
+python -m unittest discover ./openapi_server/test_manual
+```
