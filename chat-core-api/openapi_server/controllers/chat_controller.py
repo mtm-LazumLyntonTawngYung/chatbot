@@ -5,11 +5,11 @@ from openapi_server.models.chat_respond import ChatRespond  # noqa: E501
 from openapi_server.services.chat_services import ChatServices
 
 
-def reply_chat_case(body=None):  # noqa: E501
+def reply_chat_case(body=None):
     if connexion.request.is_json:
-        param_data = ChatRequest.from_dict(connexion.request.get_json())
+        incoming_data = ChatRequest(**connexion.request.get_json())
         service = ChatServices()
-        ret_msg = service.get_chat_respond(
-            param_data.message, param_data.bot_style)
-        return ChatRespond.from_dict({'message': ret_msg})
+        response_message = service.get_chat_respond(
+            incoming_data.message, incoming_data.bot_style)
+        return ChatRespond(**{'message': response_message})
     return None
