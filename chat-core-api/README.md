@@ -40,7 +40,7 @@ openapi-generator-cli generate -i swagger-build.yaml -g python-flask
 <!-- Local Environment Setting -->
 To run in command prompt
 ```sh
-set FLASK_APP=openapi_server/__main__.py
+set FLASK_APP=openapi_server/__main__.py:flask_app
 set FLASK_DEBUG=1
 python -m flask run --host=0.0.0.0 --port=8080
 ```
@@ -78,14 +78,4 @@ docker build -t openapi_server .
 
 # starting up a container
 docker run -p 8080:8080 openapi_server
-```
-
-## Running Test Code
-```sh
-pip install -r requirements.txt
-pip install -r test-requirements.txt
-# running only one file
-python -m unittest openapi_server.test_manual.chienowa_net_service
-# running all test
-python -m unittest discover ./openapi_server/test_manual
 ```
